@@ -1,12 +1,13 @@
 import { Button, TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-function Question() {
-    //add question state
+function Question(props) {
+    //add question array
 
-    const [allques, setAllQues] = useState([]);
+    let [allques , setAllQues] = useState([]);
 
     // form state
     const [question, setQuestion] = useState("");
@@ -36,17 +37,12 @@ function Question() {
 
     //add question function
     function addQuestion() {
-        // console.log(question);
-        // console.log(option01);
-        // console.log(option02);
-        // console.log(option03);
-        // console.log(answer);
         if (question.trim().length === 0 || option01.trim().length === 0 || option02.trim().length === 0 || option03.trim().length === 0 || answer.trim().length === 0) {
             Swal.fire(
                 'Empty Form?',
                 'Please Fill the form correctly',
                 'question'
-              )
+            )
         } else {
 
             allques.push({
@@ -62,15 +58,30 @@ function Question() {
                 title: 'Your Questions has been saved',
                 showConfirmButton: false,
                 timer: 1500
-              })
-            console.log(allques);
+            })
+            // console.log(allques);
             setOption01("");
             setOption02("");
             setOption03("");
             setQuestion("");
             setAnswer("");
+            console.log(allques.length)
         }
 
+    }
+    let navigate = useNavigate();
+    function gotoQuiz(){
+        // navigate('/quiz');
+        if(allques.length === 0){
+            Swal.fire(
+                'Empty Question?',
+                'Please add any question to start quiz',
+                'question'
+            )
+        }else{
+            props.func(allques);
+            navigate('/quiz')
+        }
     }
     return (
         <Box className="container p-5">
@@ -87,8 +98,9 @@ function Question() {
             <Box className='pt-3'>
                 <TextField value={answer} onChange={corAnswer} sx={{ width: "100%" }} id="outlined-basic" label="Correct Answer" variant="outlined" />
             </Box>
-            <Box className="pt-5 d-flex justify-content-center">
-                <Button variant="outlined" onClick={addQuestion}>Submit</Button>
+            <Box className="pt-5 d-flex justify-content-evenly">
+                <Button variant="outlined" onClick={addQuestion}>Submit Ques</Button>
+                <Button variant="outlined" onClick={()=>gotoQuiz()}>Start Quiz</Button>
             </Box>
 
         </Box>
