@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 
-export default function Navbar() {
+export default function Navbar(props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{backgroundColor:"#10266b"}} position="static">
@@ -25,7 +25,7 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link className='text-white text-decoration-none' to="/">Quiz App</Link>
           </Typography>
-          <Button color="inherit">10/100</Button>
+          <Button color="inherit">{props.marks}/{props.total*10}</Button>
         </Toolbar>
       </AppBar>
     </Box>

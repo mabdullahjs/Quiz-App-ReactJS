@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 function Question(props) {
+    // window.location.reload()
     //add question array
-
-    let [allques , setAllQues] = useState([]);
+    let [allques, setAllQues] = useState([]);
 
     // form state
     const [question, setQuestion] = useState("");
@@ -15,7 +15,6 @@ function Question(props) {
     const [option02, setOption02] = useState("");
     const [option03, setOption03] = useState("");
     const [answer, setAnswer] = useState("");
-
     //form value function
 
     function mainQues(e) {
@@ -65,20 +64,20 @@ function Question(props) {
             setOption03("");
             setQuestion("");
             setAnswer("");
-            console.log(allques.length)
+            // console.log(allques.length)
         }
 
     }
     let navigate = useNavigate();
-    function gotoQuiz(){
+    function gotoQuiz() {
         // navigate('/quiz');
-        if(allques.length === 0){
+        if (allques.length === 0) {
             Swal.fire(
                 'Empty Question?',
                 'Please add any question to start quiz',
                 'question'
             )
-        }else{
+        } else {
             props.func(allques);
             navigate('/quiz')
         }
@@ -100,7 +99,7 @@ function Question(props) {
             </Box>
             <Box className="pt-5 d-flex justify-content-evenly">
                 <Button variant="outlined" onClick={addQuestion}>Submit Ques</Button>
-                <Button variant="outlined" onClick={()=>gotoQuiz()}>Start Quiz</Button>
+                <Button variant="outlined" onClick={() => gotoQuiz()}>Start Quiz</Button>
             </Box>
 
         </Box>
